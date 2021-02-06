@@ -9,6 +9,7 @@ Sostanzialmente è un rimaneggiamento del codice citato di seguito:
  * @contribution Helium6072
  
  Trama: |---DA---|---SA---|---GROUP---|---SI---|---BYTE_CNT---|---PAYLOAD---|---CRC---|
+        |---1B---|---1B---|----1B-----|---1B---|------1B------|---VARIABLE--|---2B----|
  
  DA: destination address - 1byte (FF indirizzo di broadcast)
  SA: source addresss - 1byte
