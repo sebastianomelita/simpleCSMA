@@ -36,9 +36,9 @@ L'accettazione del messaggio per la trasmissione è segnalato da un true restitu
 
 Se sendMsg() restisce false allora vuol dire che il protocollo è impegnato nella trasmissione precedente.
 
-la rcvEventCallback() si attiva alla ricezione di un messaggio.
+La rcvEventCallback() si attiva alla ricezione di un messaggio.
 
-la poll(&rxobj,&val) deve essere chiamata ad ogni loop e ha due parametri modificabili: 
+La poll(&rxobj,&val) deve essere chiamata ad ogni loop e ha due parametri modificabili: 
 
 - rxobj è il datagramma in ricezione, e può essere sempre lo stesso
 
