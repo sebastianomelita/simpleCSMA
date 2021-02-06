@@ -204,7 +204,7 @@ int8_t poll(modbus_t *rt, uint8_t *buf) // valuta risposte pendenti
 	//DEBUG_PRINTLN(((uint8_t)u8Buffer[ DA ]);
 	//DEBUG_PRINT("SA mio: ");
 	//DEBUG_PRINTLN(((uint8_t)mysa);
-    if ((u8Buffer[ DA ] != mysa) && !((u8Buffer[ GROUP ] == mygroup)) && (u8Buffer[ DA ] == FF))return 0;  // altrimenti se il messaggio non è indirizzato a me...scarta
+    if ((u8Buffer[ DA ] != mysa) && !((u8Buffer[ GROUP ] == mygroup)) && (u8Buffer[ DA ] == 255))return 0;  // altrimenti se il messaggio non è indirizzato a me...scarta
 	
 	//DEBUG_PRINTLN(("msg destinato a me");
 	if (u8Buffer[ SI ] == MSG){
