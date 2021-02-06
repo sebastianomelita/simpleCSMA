@@ -35,4 +35,12 @@ Si può trasmettere un messaggio solo al completemento della trasmissione del pr
 L'accettazione del messaggio per la trasmissione è segnalato da un true restituito dalla funzione di trasmissione sendMsg(). 
 
 Se sendMsg() restisce false allora vuol dire che il protocollo è impegnato nella trasmissione precedente.
+
 la rcvEventCallback() si attiva alla ricezione di un messaggio.
+
+la poll(&rxobj,&val) deve essere chiamata ad ogni loop e ha due parametri modificabili: 
+
+- rxobj è il datagramma in ricezione, e può essere sempre lo stesso
+
+- val è una variabile o un'array di byte (BYTE, char, uint8_t, unsigned short) il cui riferimento è copiato nel campo dati del datagramma, può cambiare sia in riferimento che in valore.
+
