@@ -28,10 +28,11 @@ Sostanzialmente è un rimaneggiamento del codice citato di seguito:
  
  Il buffer di trasmissione memorizza un solo messaggio ed è a comune tra trasmissione e ricezione. 
  
- E' possibile rispondere ad una richiesta mentre si attende un ACK.
+ E' possibile rispondere ad un messaggio con un ack mentre si attende, a propria volta, un ACK.
  
 Si può trasmettere un messaggio solo al completemento della trasmissione del precedente che si conclude alla ricezione di un ACK o allo scadere dei tentativi di ritrasmissione (di default 5). 
 
 L'accettazione del messaggio per la trasmissione è segnalato da un true restituito dalla funzione di trasmissione sendMsg(). 
 
 Se sendMsg() restisce false allora vuol dire che il protocollo è impegnato nella trasmissione precedente.
+la rcvEventCallback() si attiva alla ricezione di un messaggio.
