@@ -20,6 +20,6 @@ Sostanzialmente è un rimaneggiamento del codice citato di seguito:
  
  SI: service identifier (ACK, MSG) - 1byte
  
- BYTE_CNT: numero byte complessivi (+payload -CRC)s - 1byte
+ BYTE_CNT: numero byte complessivi (+payload -CRC) - 1byte
  
  CRC: Cyclic Redundancy Check - 2byte (calcolati su tutto il messaggio)
