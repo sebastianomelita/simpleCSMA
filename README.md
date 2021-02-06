@@ -10,7 +10,7 @@ Sostanzialmente è un rimaneggiamento del codice citato di seguito:
  
  Trama: |---DA---|---SA---|---GROUP---|---SI---|---BYTE_CNT---|---PAYLOAD---|---CRC---|
  
-        |---1B---|---1B---|----1B-----|---1B---|------1B------|---VARIABLE--|---2B----|
+        |---1B---|---1B---|----1B-----|--1B---|------1B------|---VARIABLE--|---2B----|
  
  DA: destination address - 1byte (FF indirizzo di broadcast)
  
