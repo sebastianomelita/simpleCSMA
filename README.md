@@ -42,5 +42,5 @@ la poll(&rxobj,&val) deve essere chiamata ad ogni loop e ha due parametri modifi
 
 - rxobj è il datagramma in ricezione, e può essere sempre lo stesso
 
-- val è una variabile o un'array di byte (BYTE, char, uint8_t, unsigned short) il cui riferimento è copiato nel campo dati del datagramma, può cambiare sia in riferimento che in valore.
+- val è una variabile o un'array di byte (BYTE, char, uint8_t, unsigned short) il cui riferimento è copiato nel campo dati del datagramma, può cambiare sia in riferimento che in valore. E' l'area di memria su cui viene copiato il messaggio in arrivo.
 
