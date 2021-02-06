@@ -8,7 +8,9 @@ Sostanzialmente è un rimaneggiamento del codice citato di seguito:
  * @contact     sammarcoarmengol@gmail.com
  * @contribution Helium6072
  
- Trama: |---DA---|---SA---|---GROUP---|---SI---|---BYTE_CNT---|---PAYLOAD---|---CRC---|
+ Trama: 
+ 
+        |---DA---|---SA---|---GROUP---|---SI---|---BYTE_CNT---|---PAYLOAD---|---CRC---|
  
         |---1B---|---1B---|----1B-----|--1B---|------1B------|---VARIABLE--|---2B----|
  
