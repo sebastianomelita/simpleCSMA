@@ -9,11 +9,17 @@ Sostanzialmente è un rimaneggiamento del codice citato di seguito:
  * @contribution Helium6072
  
  Trama: |---DA---|---SA---|---GROUP---|---SI---|---BYTE_CNT---|---PAYLOAD---|---CRC---|
+ 
         |---1B---|---1B---|----1B-----|---1B---|------1B------|---VARIABLE--|---2B----|
  
  DA: destination address - 1byte (FF indirizzo di broadcast)
+ 
  SA: source addresss - 1byte
+ 
  Group: group addresss - 1byte (per inviare a tutti membri del gruppo DA deve essere FF)
+ 
  SI: service identifier (ACK, MSG)s - 1byte
+ 
  BYTE_CNT: numero byte complessivi (+payload -CRC)s - 1byte
+ 
  CRC: Cyclic Redundancy Check - 2byte (calcolati su tutto il messaggio)
