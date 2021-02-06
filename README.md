@@ -12,7 +12,7 @@ Sostanzialmente è un rimaneggiamento del codice citato di seguito:
  
         |---DA---|---SA---|---GROUP---|---SI---|---BYTE_CNT---|---PAYLOAD---|---CRC---|
  
-        |---1B---|---1B---|----1B-----|--1B---|------1B------|---VARIABLE--|---2B----|
+        |---1B---|---1B---|----1B-----|---1B---|------1B------|---VARIABLE--|---2B----|
  
  DA: destination address - 1byte (1-254, 255 indirizzo di broadcast)
  
