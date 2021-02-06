@@ -18,7 +18,7 @@ Sostanzialmente è un rimaneggiamento del codice citato di seguito:
  
  Group: group addresss - 1byte da 1 a 254 (per inviare a tutti membri del gruppo DA deve essere 0xFF o 255)
  
- SI: service identifier (ACK, MSG)s - 1byte
+ SI: service identifier (ACK, MSG) - 1byte
  
  BYTE_CNT: numero byte complessivi (+payload -CRC)s - 1byte
  
