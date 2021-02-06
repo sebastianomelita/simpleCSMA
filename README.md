@@ -12,11 +12,11 @@ Sostanzialmente è un rimaneggiamento del codice citato di seguito:
  
         |---1B---|---1B---|----1B-----|--1B---|------1B------|---VARIABLE--|---2B----|
  
- DA: destination address - 1byte (FF indirizzo di broadcast)
+ DA: destination address - 1byte (1-254, 255 indirizzo di broadcast)
  
- SA: source addresss - 1byte
+ SA: source addresss - 1byte da 1 a 254
  
- Group: group addresss - 1byte (per inviare a tutti membri del gruppo DA deve essere FF)
+ Group: group addresss - 1byte da 1 a 254 (per inviare a tutti membri del gruppo DA deve essere 0xFF o 255)
  
  SI: service identifier (ACK, MSG)s - 1byte
  
