@@ -56,7 +56,7 @@ Se l'ack di un invio non arriva in tempo, allo scadere di un timeout, la ritrasm
 
 Il tempo casuale serve a minimizzare la probabilità di collisione con le altre stazioni, la finestra variabile a tenere conto delle varie situazioni di traffico.
 
-Tempistiche:
+Tempistiche e impostazioni:
 
 - MAXATTEMPTS  	numero di tentativi di ritrasmissione in mancanza di un ack dal ricevitore
 
