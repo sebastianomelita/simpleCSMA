@@ -30,6 +30,7 @@ uint8_t getMyGroup(){
 }
 
 void init(Stream *port485, uint8_t _txpin485, uint8_t mysa485, uint8_t mygroup485, uint32_t u32speed=9600){
+	randomSeed(analogRead(0));
 	port = port485;
 	_txpin = _txpin485;
 	mysa = mysa485;
@@ -84,8 +85,15 @@ bool sendMsg(modbus_t *tosend){
 			precAck = millis();	
 			DEBUG_PRINTLN("ACKSTATE:");
 		}else{
-			u8state = TRANSMIT_INTERRUPTED;
-			DEBUG_PRINTLN("TRANSMIT_INTERRUPTED:");
+			u8state = BACKOFF_STARTED;
+			backoffTime = getBackoff();
+			precBack = millis();
+			retry = 0;
+			DEBUG_PRINT("DIFS_BACKOFF_STARTED: ");
+			DEBUG_PRINT(backoffTime);
+			DEBUG_PRINT(", retry: ");
+			DEBUG_PRINTLN(retry);
+			u8state = BACKOFF_STARTED;
 		}
 	}//else messaggio non si invia....
 	return sent;
@@ -107,13 +115,6 @@ int8_t poll(modbus_t *rt, uint8_t *buf) // valuta risposte pendenti
 			u8state = ACKSTATE;	
 			precAck = millis();
 		}
-	}
-	
-	if((u8state == TRANSMIT_INTERRUPTED) && cca){ 
-			DEBUG_PRINTLN("RESEND AFTER CCA: ");
-			resendMsg(appobj); //trasmette sul canale
-			u8state = ACKSTATE;	
-			precAck = millis();
 	}
 	
 	// controlla se è in arrivo un messaggio
