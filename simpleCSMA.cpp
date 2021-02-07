@@ -70,7 +70,6 @@ bool sendMsg(modbus_t *tosend){
 	tosend->u8group = mygroup;
 	bool sent = false;
 	//DEBUG_PRINTLN(((int)u8state);
-	ackobj.u8da = u8Buffer[ SA ]; //problema!
 	DEBUG_PRINT("Msg DA: ");
 	DEBUG_PRINTLN((uint8_t)tosend->u8da);
 	DEBUG_PRINT("Msg SA: ");
