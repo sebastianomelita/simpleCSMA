@@ -62,7 +62,7 @@ Tempistiche:
 
 - WNDW    		dimensione iniziale della finestra di ritrasmissione, aumenta con la progressione WNDW*2^NTENTATVI
 
-- DIFS 			tempo di attesa prima di trasmettere dopo aver sentito il canale libero	//DIFS =  SIFS  + (2 * Slot time) 
+- DIFS 			tempo di attesa prima di trasmettere dopo aver sentito il canale libero	DIFS =  SIFS  + (2 * Slot time) 
 
 - SIFS 			tempo tra la ricezione di un messaggio e l'invio del suo ack
 
