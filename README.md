@@ -58,16 +58,16 @@ Il tempo casuale serve a minimizzare la probabilità di collisione con le altre 
 
 Tempistiche:
 
--MAXATTEMPTS  	numero di tentativi di ritrasmissione in mancanza di un ack dal ricevitore
+- MAXATTEMPTS  	numero di tentativi di ritrasmissione in mancanza di un ack dal ricevitore
 
--WNDW    		dimensione iniziale della finestra di ritrasmissione, aumenta con la progressione WNDW*2^NTENTATVI
+- WNDW    		dimensione iniziale della finestra di ritrasmissione, aumenta con la progressione WNDW*2^NTENTATVI
 
--DIFS 			tempo di attesa prima di trasmettere dopo aver sentito il canale libero	//DIFS =  SIFS  + (2 * Slot time) 
+- DIFS 			tempo di attesa prima di trasmettere dopo aver sentito il canale libero	//DIFS =  SIFS  + (2 * Slot time) 
 
--SIFS 			tempo tra la ricezione di un messaggio e l'invio del suo ack
+- SIFS 			tempo tra la ricezione di un messaggio e l'invio del suo ack
 
--TXTIMEOUT 		timeoute di ritrasmissione. Tempo massimo di attesa di un ack, passato il quale, avviene la ritrasmissione
+- TXTIMEOUT 		timeoute di ritrasmissione. Tempo massimo di attesa di un ack, passato il quale, avviene la ritrasmissione
 
--DEBUG  			1 attiva modo debug
+- DEBUG  			1 attiva modo debug
 
 
