@@ -68,6 +68,8 @@ Tempistiche e impostazioni:
 
 - TXTIMEOUT 		timeoute di ritrasmissione. Tempo massimo di attesa di un ack, passato il quale, avviene la ritrasmissione
 
+- Slot time tempo di propagazione tra le stazioni più distanti del sistema
+
 - DEBUG  			1 attiva modo debug
 
 
