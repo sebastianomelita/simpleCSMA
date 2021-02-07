@@ -83,7 +83,7 @@ bool sendMsg(modbus_t *tosend){
 			sendTxBuffer(u8Buffer[ BYTE_CNT ]); //trasmette sul canale
 			u8state = ACKSTATE;
 			precAck = millis();	
-			DEBUG_PRINTLN("ACKSTATE:");
+			DEBUG_PRINTLN("DIFS_ACKSTATE:");
 		}else{
 			u8state = BACKOFF_STARTED;
 			backoffTime = getBackoff();
