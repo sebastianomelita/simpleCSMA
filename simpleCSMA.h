@@ -7,7 +7,6 @@
 #define STOP_BIT  		5  
 #define MSG  			1 	
 #define ACK  			129 //(100000001)  il primo (MSB) bit è un ack bit
-#define TBASE			20
 #define MAXATTEMPTS  	5
 #define WNDW    		20
 // SlotTime = CCATime + RxTxTurnaroundTime + AirPropagationTime+ MACProcessingDelay 
@@ -29,8 +28,7 @@ enum PROTO_STATE
 {
     WAITSTATE             	  	= 1,
     ACKSTATE                  	= 2,
-	BACKOFF_STARTED				= 3,
-	TRANSMIT_INTERRUPTED		= 4
+	BACKOFF_STARTED				= 3
 };
 
 enum ERR_LIST
