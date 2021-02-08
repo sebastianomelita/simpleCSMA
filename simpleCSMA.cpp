@@ -335,7 +335,7 @@ void rcvEvent(modbus_t* rcvd, uint8_t msglen){
 	rcvd->u8si = u8Buffer[ SI ];
 	rcvd->msglen = u8Buffer[ BYTE_CNT ];
 	// payload
-	for(int i=0; i < msglen; i++){
+	for(int i=0; i < msglen-PAYLOAD; i++){
 		rcvd->data[i] = u8Buffer[i+PAYLOAD];
 	}
 	// notifica l'evento di ricezione all'applicazione con una callback
