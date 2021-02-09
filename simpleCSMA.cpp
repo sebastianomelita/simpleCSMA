@@ -84,7 +84,7 @@ void init(Stream *port485, uint8_t _txpin485, uint8_t mysa485, uint8_t mygroup48
 	_txpin = _txpin485;
 	mysa = mysa485;
 	mygroup = mygroup485;
-	u16InCnt = u16OutCnt = u16errCnt = 0;
+	u16InCnt = u16OutCnt = u16errCnt = u16inAckCnt = u16inMsgCnt = u16OutMsgCnt = u16reOutMsgCnt = u16noreOutMsgCnt = 0;
 	static_cast<HardwareSerial*>(port)->begin(u32speed);
 	ackobj.u8sa = mysa;
 	ackobj.u8group = mygroup;
