@@ -20,7 +20,7 @@
 #include "simpleCSMA.h"
 uint8_t u8Buffer[MAX_BUFFER]; // buffer unico condiviso per TX e RX (da usare alternativamente)
 uint8_t _txpin;
-uint16_t u16InCnt, u16OutCnt, u16errCnt, u16inAckCnt, u16inMsgCnt, u16OutMsgCnt, u16reOutMsgCnt;
+uint16_t u16InCnt, u16OutCnt, u16errCnt, u16inAckCnt, u16inMsgCnt, u16OutMsgCnt, u16reOutMsgCnt, u16noreOutMsgCnt;
 uint8_t u8lastRec; // per rivelatore di fine trama (stop bit)
 modbus_t ackobj, *appobj;
 uint8_t mysa;
@@ -120,9 +120,9 @@ bool sendMsg(modbus_t *tosend){
 	tosend->u8group = mygroup;
 	bool sent = false;
 	//DEBUG_PRINTLN(((int)u8state);
-	DEBUG_PRINT("Msg DA: ");
+	DEBUG_PRINT("Sent Msg DA: ");
 	DEBUG_PRINTLN((uint8_t)tosend->u8da);
-	DEBUG_PRINT("Msg SA: ");
+	DEBUG_PRINT("Sent Msg SA: ");
 	DEBUG_PRINTLN((uint8_t)tosend->u8sa);
 	if(u8state == WAITSTATE){
 		DEBUG_PRINTLN("copiato:");
@@ -133,6 +133,7 @@ bool sendMsg(modbus_t *tosend){
 			u8state = ACKSTATE;
 			precAck = millis();	
 			DEBUG_PRINTLN("DIFS_ACKSTATE:");
+			u16noreOutMsgCnt++;
 			u16OutMsgCnt++;
 		}else{//accesso differito
 			u8state = TX_DEFERRED;
@@ -168,6 +169,7 @@ int8_t poll(modbus_t *rt, uint8_t *buf) // valuta risposte pendenti
 				DEBUG_PRINTLN("DIFS_BACKOFF_scaduto: ");
 				resendMsg(appobj); //trasmette sul canale
 				u16OutMsgCnt++;
+				u16noreOutMsgCnt++;
 				u8state = ACKSTATE;	
 				precAck = millis();
 			}
@@ -283,7 +285,20 @@ int8_t poll(modbus_t *rt, uint8_t *buf) // valuta risposte pendenti
 	//DEBUG_PRINTLN(((uint8_t)u8Buffer[ DA ]);
 	//DEBUG_PRINT("SA mio: ");
 	//DEBUG_PRINTLN(((uint8_t)mysa);
-    if ((u8Buffer[ DA ] != mysa) && !((u8Buffer[ GROUP ] == mygroup)) && (u8Buffer[ DA ] == 255))return 0;  // altrimenti se il messaggio non è indirizzato a me...scarta
+    if ((u8Buffer[ DA ] != mysa) && !((u8Buffer[ GROUP ] == mygroup)) && (u8Buffer[ DA ] == 255)){
+		DEBUG_PRINTLN("msg non destinato a me");
+		DEBUG_PRINT("DA: ");
+		DEBUG_PRINTLN((uint8_t)u8Buffer[ DA ]);
+		DEBUG_PRINT("SA mio: ");
+		DEBUG_PRINTLN((uint8_t)mysa);
+		return 0;  // altrimenti se il messaggio non è indirizzato a me...scarta
+	}else{
+		DEBUG_PRINTLN("msg destinato a me");
+		DEBUG_PRINT("DA: ");
+		DEBUG_PRINTLN((uint8_t)u8Buffer[ DA ]);
+		DEBUG_PRINT("SA mio: ");
+		DEBUG_PRINTLN((uint8_t)mysa);
+	}
 	
 	//DEBUG_PRINTLN(("msg destinato a me");
 	if (u8Buffer[ SI ] == MSG){
@@ -312,6 +327,9 @@ int8_t poll(modbus_t *rt, uint8_t *buf) // valuta risposte pendenti
 			retry = 0;
 			u16inAckCnt++;
 		}//else messaggio di ack si perde....
+	}else{
+		DEBUG_PRINT("MESSAGGIO SCONOSCIUTO, SI:");
+		DEBUG_PRINTLN((int) u8Buffer[ SI ]);
 	}
     return i8state;
 }
