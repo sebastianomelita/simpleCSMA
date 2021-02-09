@@ -120,9 +120,9 @@ bool sendMsg(modbus_t *tosend){
 	tosend->u8group = mygroup;
 	bool sent = false;
 	//DEBUG_PRINTLN(((int)u8state);
-	DEBUG_PRINT("Sent Msg DA: ");
+	DEBUG_PRINT("Msg DA: ");
 	DEBUG_PRINTLN((uint8_t)tosend->u8da);
-	DEBUG_PRINT("Sent Msg SA: ");
+	DEBUG_PRINT("Msg SA: ");
 	DEBUG_PRINTLN((uint8_t)tosend->u8sa);
 	if(u8state == WAITSTATE){
 		DEBUG_PRINTLN("copiato:");
@@ -283,20 +283,7 @@ int8_t poll(modbus_t *rt, uint8_t *buf) // valuta risposte pendenti
 	//DEBUG_PRINTLN(((uint8_t)u8Buffer[ DA ]);
 	//DEBUG_PRINT("SA mio: ");
 	//DEBUG_PRINTLN(((uint8_t)mysa);
-    if ((u8Buffer[ DA ] != mysa) && !((u8Buffer[ GROUP ] == mygroup)) && (u8Buffer[ DA ] == 255)){
-		DEBUG_PRINTLN("msg non destinato a me");
-		DEBUG_PRINT("DA: ");
-		DEBUG_PRINTLN((uint8_t)u8Buffer[ DA ]);
-		DEBUG_PRINT("SA mio: ");
-		DEBUG_PRINTLN((uint8_t)mysa);
-		return 0;  // altrimenti se il messaggio non è indirizzato a me...scarta
-	}else{
-		DEBUG_PRINTLN("msg destinato a me");
-		DEBUG_PRINT("DA: ");
-		DEBUG_PRINTLN((uint8_t)u8Buffer[ DA ]);
-		DEBUG_PRINT("SA mio: ");
-		DEBUG_PRINTLN((uint8_t)mysa);
-	}
+    if ((u8Buffer[ DA ] != mysa) && !((u8Buffer[ GROUP ] == mygroup)) && (u8Buffer[ DA ] == 255))return 0;  // altrimenti se il messaggio non è indirizzato a me...scarta
 	
 	//DEBUG_PRINTLN(("msg destinato a me");
 	if (u8Buffer[ SI ] == MSG){
@@ -325,9 +312,6 @@ int8_t poll(modbus_t *rt, uint8_t *buf) // valuta risposte pendenti
 			retry = 0;
 			u16inAckCnt++;
 		}//else messaggio di ack si perde....
-	}else{
-		DEBUG_PRINT("MESSAGGIO SCONOSCIUTO, SI:");
-		DEBUG_PRINTLN((int) u8Buffer[ SI ]);
 	}
     return i8state;
 }
