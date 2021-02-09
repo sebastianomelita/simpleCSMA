@@ -304,10 +304,6 @@ int8_t poll(modbus_t *rt, uint8_t *buf) // valuta risposte pendenti
 	if (u8Buffer[ SI ] == MSG){
 		//ackobj.u8sa = mysa;
 		ackobj.u8da = u8Buffer[ SA ]; //problema!
-		DEBUG_PRINT("RECEIVED_MSG DA: ");
-		DEBUG_PRINTLN((uint8_t)u8Buffer[ SA ]);
-		DEBUG_PRINT("RECEIVED_MSG SA: ");
-		DEBUG_PRINTLN((uint8_t)ackobj.u8sa);
 		//ackobj.u8group = u8Buffer[ GROUP ];
 		//ackobj.u8si = u8Buffer[ SI ];
 		//ackobj.data = "";
@@ -315,10 +311,9 @@ int8_t poll(modbus_t *rt, uint8_t *buf) // valuta risposte pendenti
 		rt->data = buf;
 		rcvEvent(rt, i8state); // il messaggio è valido allora genera un evento di "avvenuta ricezione"
 		resendMsg(&ackobj);
-		DEBUG_PRINTLN("ACKSENT:");
+		DEBUG_PRINTLN("MSG RECEIVED - ACKSENT:");
 		u16inMsgCnt++;
 		rcvEventCallback(rt);   // l'evento ha il messaggio come parametro di out
-		DEBUG_PRINTLN("rcvEventCallback:");
 	}else if (u8Buffer[ SI ] == ACK){
 		DEBUG_PRINTLN("ACK_RECEIVED:");
 		if(u8state == ACKSTATE || u8state == BACKOFF_STARTED){
