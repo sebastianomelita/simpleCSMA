@@ -161,7 +161,7 @@ int8_t poll(modbus_t *rt, uint8_t *buf) // valuta risposte pendenti
 	uint8_t u8current;
     u8current = port->available(); // vede se è arrivato un "pezzo" iniziale del messaggio (frame chunk)
 
-    if (u8current == 0){//canale libero
+    if (u8current == 0){ //canale libero
 		//se il canale è libero controlla la scadenza di un eventuale backoff di prima trasmissione
 		if(u8state == DIFS_BACKOFF_STARTED){ 
 			// controlla se è scaduto il backoff
@@ -187,7 +187,7 @@ int8_t poll(modbus_t *rt, uint8_t *buf) // valuta risposte pendenti
 			}
 		}
 		//controlla se c'è una transizione da occupato a libero
-		if(cca == false && !started){//transizione da occupato a libero
+		if(cca == false && !started){ //transizione da occupato a libero
 			u32difsTime = millis(); // da adesso aspetta un DIFS
 			started = true;
 			if((u8state == BACKOFF_STARTED) || (u8state == DIFS_BACKOFF_STARTED)){
@@ -196,12 +196,12 @@ int8_t poll(modbus_t *rt, uint8_t *buf) // valuta risposte pendenti
 			DEBUG_PRINTLN("cca changed to true 1: ");
 		}
 		//controlla se è passato un DIFS
-		if ((unsigned long)(millis() -u32difsTime) > (unsigned long)DIFS) {
+		if((unsigned long)(millis() -u32difsTime) > (unsigned long)DIFS){
 			cca = true; // IDLE ed è passato un DIFS
 			started = false;	
 			// elenco operazioni da fare allo scadere del DIFS
 			//1) fare partire il backoff di prima trasmissione
-			}if(u8state == TX_DEFERRED){//la catena di backoff INIZIA a cca asserito (DIFS scaduto)
+			if(u8state == TX_DEFERRED){//la catena di backoff INIZIA a cca asserito (DIFS scaduto)
 					u8state = DIFS_BACKOFF_STARTED;
 					backoffTime = getBackoff();
 					precBack = millis();
@@ -230,9 +230,10 @@ int8_t poll(modbus_t *rt, uint8_t *buf) // valuta risposte pendenti
 						DEBUG_PRINTLN("WAITSTATE:");
 					}
 				}
+			}
+			return 0;  // se non è arrivato nulla per ora basta, ricontrolla al prossimo giro
 		}
-		return 0;  // se non è arrivato nulla per ora basta, ricontrolla al prossimo giro
-	}else{
+	}else{ // canale occupato
 		//controlla transizione da libero a occupato
 		if(cca){
 			cca = false;
