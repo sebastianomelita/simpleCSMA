@@ -23,6 +23,7 @@
 #define STOP_BIT  		5  
 #define MSG  			1 	
 #define ACK  			129 //(100000001)  il primo (MSB) bit è un ack bit
+#define TBASE			20
 #define MAXATTEMPTS  	5
 #define WNDW    		20
 // SlotTime = CCATime + RxTxTurnaroundTime + AirPropagationTime+ MACProcessingDelay 
@@ -44,7 +45,9 @@ enum PROTO_STATE
 {
     WAITSTATE             	  	= 1,
     ACKSTATE                  	= 2,
-	BACKOFF_STARTED				= 3
+	BACKOFF_STARTED				= 3,
+	DIFS_BACKOFF_STARTED		= 4,
+	TX_DEFERRED					= 5
 };
 
 enum ERR_LIST
@@ -77,6 +80,20 @@ typedef struct
 uint8_t getMySA();
 
 uint8_t getMyGroup();
+
+uint16_t getOutCnt();
+
+uint16_t getErrCnt();
+
+uint16_t getInCnt();
+
+uint16_t getAckCnt();
+
+float getErrInRatio();
+
+float getInAckOutMsgRatio();
+
+float getReOutMsgOutMsgRatio();
 
 void init(Stream *, uint8_t , uint8_t , uint8_t , uint32_t);
 
