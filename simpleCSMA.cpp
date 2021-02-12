@@ -246,8 +246,8 @@ int8_t poll(modbus_t *rt, uint8_t *buf) // valuta risposte pendenti
 					}
 				}
 			}
-			return 0;  // se non è arrivato nulla per ora basta, ricontrolla al prossimo giro
 		}
+		return 0;  // se non è arrivato nulla per ora basta, ricontrolla al prossimo giro
 	}else{ // canale occupato
 		//controlla transizione da libero a occupato
 		if(cca){
@@ -269,13 +269,14 @@ int8_t poll(modbus_t *rt, uint8_t *buf) // valuta risposte pendenti
 		//DEBUG_PRINTLN(("STOP_BIT:");
         return 0;
     }
-	
+	DEBUG_PRINTLN("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 	// Se la distanza tra nuovo e vecchio carattere è minore di uno stop bit ancora la trama non è completa
     if ((unsigned long)(millis() -u32time) < (unsigned long)STOP_BIT) return 0;
 	
+	DEBUG_PRINTLN("--------------------------------------------------------------------------------------------");
 	int8_t i8state = getRxBuffer();  // altrimenti recupera tutto il messaggio e mettilo sul buffer
 	
-    if ((i8state > 0) && (i8state < PAYLOAD + 1)) // se è incompleto scartalo
+    if ((i8state >= 0) && (i8state < PAYLOAD + 1)) // se è incompleto scartalo
     {
 		u16errCnt++;
         return i8state;
@@ -443,10 +444,11 @@ int8_t getRxBuffer()
 				return ERR_BUFF_OVERFLOW;
 			}
 		}else{
+			DEBUG_PRINT("RCV_BUFFER_EOF: ");
 			break;
 		}
     }
-	DEBUG_PRINTLN();
+	DEBUG_PRINTLN("END_RCV_BUFFER: ");
 	// confonta il CRC ricevuto con quello calcolato in locale
     uint16_t u16MsgCRC =
         ((u8Buffer[u8BufferSize - 2] << 8)
