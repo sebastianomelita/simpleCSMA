@@ -1,4 +1,4 @@
-# simpleCSMA trailed
+# simpleCSMA
 Implementazione del protocollo CSMA/CA con rilevazione delle collisioni basata sulla perdita o sulla non correttezza degli ack inviati dal ricevitore. Il protocollo è in fase di sviluppo e test, osservazioni e issue sono ben accette!
 
 Si può usare per realizzare un sistema multimaster con stazioni che trasmettono indipendentemente l'una dall'altra senza la supervisione di un dispositivo centrale (master).
