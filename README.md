@@ -1,4 +1,4 @@
-# simpleCSMA
+# simpleCSMA trailed
 Implementazione del protocollo CSMA/CA con rilevazione delle collisioni basata sulla perdita o sulla non correttezza degli ack inviati dal ricevitore. Il protocollo è in fase di sviluppo e test, osservazioni e issue sono ben accette!
 
 Si può usare per realizzare un sistema multimaster con stazioni che trasmettono indipendentemente l'una dall'altra senza la supervisione di un dispositivo centrale (master).
@@ -14,9 +14,9 @@ Sostanzialmente è un rimaneggiamento del codice citato di seguito:
  
  Trama: 
  
-        |---DA---|---SA---|---GROUP---|---SI---|---BYTE_CNT---|---PAYLOAD---|---CRC---|
+        |---DA---|---SA---|---GROUP---|---SI---|---BYTE_CNT---|---PAYLOAD---|---CRC---|--END_DELIM--|
  
-        |---1B---|---1B---|----1B-----|---1B---|------1B------|---VARIABLE--|---2B----|
+        |---1B---|---1B---|----1B-----|---1B---|------1B------|---VARIABLE--|---2B----|------1B-----|
  
  - DA: destination address - 1byte (1-254, 255 indirizzo di broadcast)
  
@@ -48,13 +48,21 @@ La poll(&rxobj,&val) deve essere chiamata ad ogni loop e ha due parametri modifi
 
 - val è una variabile o un'array di byte (BYTE, char, uint8_t, unsigned short) il cui riferimento è copiato nel campo dati del datagramma, può cambiare sia in riferimento che in valore. E' l'area di memoria su cui viene copiato il messaggio in arrivo.
 
-Manda un messaggio non più lungo di 250 bit, può essere un numero o una sequenza di caratteri (ad es. un JSON)
+Trama unicast:
 
-All'invio riceve automaticamente la conferma dal destinatario, se non la riceve, ritrasmette fino a 5 volte, poi rinuncia.
+- Manda un messaggio non più lungo di 250 bit, può essere un numero o una sequenza di caratteri (ad es. un JSON)
 
-Se l'ack di un invio non arriva in tempo, allo scadere di un timeout, la ritrasmissione avviene dopo un tempo casuale (backoff) all'interno di una finestra di trasmissione che si allarga, ad ogni nuovo tentativo, in maniera esponenziale.
+- All'invio riceve automaticamente la conferma dal destinatario, se non la riceve, ritrasmette fino a 5 volte, poi rinuncia.
 
-Il tempo casuale serve a minimizzare la probabilità di collisione con le altre stazioni, la finestra variabile a tenere conto delle varie situazioni di traffico.
+- Se l'ack di un invio non arriva in tempo, allo scadere di un timeout, la ritrasmissione avviene dopo un tempo casuale (backoff) all'interno di una finestra di trasmissione che si allarga, ad ogni nuovo tentativo, in maniera esponenziale. Il tempo casuale serve a minimizzare la probabilità di collisione con le altre stazioni, la finestra variabile a tenere conto delle varie situazioni di traffico.
+
+Trama multicast:
+
+- Manda un messaggio non più lungo di 250 bit, può essere un numero o una sequenza di caratteri (ad es. un JSON)
+
+- è caratterizzata dall'indirizzo di destinazione 0xFF che significa broadcast all'interno del proprio gruppo
+
+- Alla sua ricezione, il destinatario invia automaticamente una conferma negativa (NACK) se questo ha ricevuto una trama corrotta, alla ricezione del NACK il mittente reinvia la trama in unicast al membro del gruppo che ha ricevuto la trama corrotta.
 
 Tempistiche e impostazioni:
 
