@@ -386,8 +386,8 @@ void sendTxBuffer(uint8_t u8BufferSize){
     u8Buffer[ u8BufferSize ] = u16crc & 0x00ff; //seleziona il byte meno significativo
     u8BufferSize++;
 	// add end delimiter
-	u8Buffer[ u8BufferSize ] = SOFV;
-    u8BufferSize++;
+	// // u8Buffer[ u8BufferSize ] = SOFV;
+    // // u8BufferSize++;
 
 	if (_txpin > 1)
     {
@@ -424,6 +424,7 @@ int8_t getRxBuffer()
     if (_txpin > 1) digitalWrite( _txpin, LOW );
 	//DEBUG_PRINT("received: ");
     uint8_t u8BufferSize = 0;
+	DEBUG_PRINT("RCV_BUFFER: ");
     while ( port->available() ) // finchè ce ne sono, leggi tutti i caratteri disponibili
     {							// e mettili sul buffer di ricezione
 		uint8_t curr = port->read();
