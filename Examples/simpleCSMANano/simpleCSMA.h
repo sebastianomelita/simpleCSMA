@@ -21,7 +21,7 @@
 #include "Arduino.h"
 #define MAX_BUFFER 		64
 #define STOP_BIT  		5  
-#define SOFV			126	  
+#define SOFV			255	  
 #define MSG  			1 	
 #define ACK  			129 //(100000001)  il primo (MSB) bit è un ack bit
 #define NACK  			128 //(100000001)  il primo (MSB) bit è un ack bit
