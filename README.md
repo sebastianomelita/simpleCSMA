@@ -4,14 +4,9 @@ Implementazione del protocollo CSMA/CA con rilevazione delle collisioni basata s
 Si può usare per realizzare un sistema multimaster con stazioni che trasmettono indipendentemente l'una dall'altra senza la supervisione di un dispositivo centrale (master).
 
 Si adopera su un bus interfacciato con un transceiver RS485. Il transceiver provato è un MAX485 con piedino di controllo della direzione. Dovrebbe funzionare anche con un transceiver col controllo automatico della direzione (piedino con una impostazione qualsiasi).
-Sostanzialmente è un rimaneggiamento del codice citato di seguito:
- * @file 	ModbusRtu.h
- * @version     1.21
- * @date        2016.02.21
- * @author 	Samuel Marco i Armengol
- * @contact     sammarcoarmengol@gmail.com
- * @contribution Helium6072
- 
+
+Sono possibili sia trasmissioni unicast che multicast trattate indipendentemente l'una dall'altra a livello di datagramma semplicemente impostando l'indirizzo di broadcast sul gruppo (255)
+
 Supporta la libreria SoftwareSerial ma, in questo caso, bisogna impostare la velocità a 0 mella funzione init() e impostare la effettiva velocità della seriale emulata con il comando begin() dell'oggetto SoftwareSerial (nel setup() dello sketch).
  
  Trama: 
@@ -88,4 +83,10 @@ Tempistiche e impostazioni:
 
 - DEBUG  			1 attiva modo debug
 
-
+Sostanzialmente è un rimaneggiamento del codice citato di seguito di cui si ringrazia l'autore:
+ * @file 	ModbusRtu.h
+ * @version     1.21
+ * @date        2016.02.21
+ * @author 	Samuel Marco i Armengol
+ * @contact     sammarcoarmengol@gmail.com
+ * @contribution Helium6072
