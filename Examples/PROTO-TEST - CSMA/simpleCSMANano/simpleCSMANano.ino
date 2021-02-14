@@ -1,7 +1,7 @@
 #include <SoftwareSerial.h>
 //RX is digital pin 2 (connect to TX of other device)
 //TX is digital pin 3 (connect to RX of other device)
-#include "simpleALOHA.h"
+#include "simpleCSMA.h"
 #define TBASE			20
 #define nstep			1000
 SoftwareSerial mySerial(2, 3); // RX, TX
