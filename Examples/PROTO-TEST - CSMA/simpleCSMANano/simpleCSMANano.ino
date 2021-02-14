@@ -28,7 +28,8 @@ void setup()
   mySerial.begin(9600);
   init(&mySerial, txpin, 2, 1, 0); // port485, txpin, mysa, mygroup4, speed=9600
   //preparazione messaggio TX (parallelo)
-  txobj.u8da = 1; //multicast sul gruppo
+  txobj.u8da = 1; 
+  //txobj.u8da = 255; // indirizzo broadcast sul gruppo
   txobj.msglen = 1;
   //txobj.data = "Salve sono Nano da disp 1";
   //txobj.msglen = strlen((char*)txobj.data )+1;
