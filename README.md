@@ -16,9 +16,9 @@ Supporta la libreria SoftwareSerial ma, in questo caso, bisogna impostare la vel
  
  Trama: 
  
-        |---DA---|---SA---|---GROUP---|---SI---|---BYTE_CNT---|---PAYLOAD---|---CRC---|--END_DELIM--|
+        |---DA---|---SA---|---GROUP---|---SI---|---BYTE_CNT---|---PAYLOAD---|---CRC---|---EOF---|
  
-        |---1B---|---1B---|----1B-----|---1B---|------1B------|---VARIABLE--|---2B----|------1B-----|
+        |---1B---|---1B---|----1B-----|---1B---|------1B------|---VARIABLE--|---2B----|---1B----|
  
  - DA: destination address - 1byte (1-254, 255 indirizzo di broadcast)
  
@@ -31,6 +31,8 @@ Supporta la libreria SoftwareSerial ma, in questo caso, bisogna impostare la vel
  - BYTE_CNT: numero byte complessivi (+payload -CRC) - 1byte
  
  - CRC: Cyclic Redundancy Check - 2byte (calcolati su tutto il messaggio)
+ 
+ - EOF. End Of Frame delimitatore di fine trama che dovrebbe limitare gli errori su trame molto vicine. Il valore NON DEVE essere presente nel campo dati (funzione di bit stuffing non implementata!)
  
  Il buffer di trasmissione memorizza un solo messaggio ed è a comune tra trasmissione e ricezione. 
  
@@ -52,7 +54,7 @@ La poll(&rxobj,&val) deve essere chiamata ad ogni loop e ha due parametri modifi
 
 Trama unicast:
 
-- Manda un messaggio non più lungo di 250 bit, può essere un numero o una sequenza di caratteri (ad es. un JSON)
+- Manda un messaggio non più lungo di 250 bit, può essere un numero o una sequenza di caratteri (ad es. un JSON) 
 
 - All'invio riceve automaticamente la conferma dal destinatario, se non la riceve, ritrasmette fino a 5 volte, poi rinuncia.
 
