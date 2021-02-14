@@ -336,9 +336,9 @@ int8_t poll(modbus_t *rt, uint8_t *buf) // valuta risposte pendenti
 				DEBUG_PRINTLN((int) i8state);
 				DEBUG_PRINT("SENDING NACK TO: ");
 				DEBUG_PRINTLN((int) ackobj.u8da);
-				return i8state; // altrimenti gli altri di seguito leggono il valore del buffer di trasmissione
 			}
 		}
+		return i8state; // altrimenti gli altri di seguito leggono il valore del buffer di trasmissione
 	}
 	//DEBUG_PRINTLN(("msg destinato a me");
 	if (u8Buffer[ SI ] == MSG){
