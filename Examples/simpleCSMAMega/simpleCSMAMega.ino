@@ -38,6 +38,7 @@ void setup()
   init(&Serial1, txpin, 1, 1, 9600); // port485, txpin, mysa, mygroup4, speed=9600
   //preparazione messaggio TX (parallelo)
   txobj.u8da = 2;
+  //txobj.u8da = 255; // indirizzo broadcast sul gruppo
   //txobj.data = "Salve sono Nano da disp 1";
   //txobj.msglen = strlen((char*)txobj.data )+1;
 }
