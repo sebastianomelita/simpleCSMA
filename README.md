@@ -83,7 +83,7 @@ Tempistiche e impostazioni:
 
 - DEBUG  			1 attiva modo debug
 
-Sostanzialmente è un rimaneggiamento del codice citato di seguito di cui si ringrazia l'autore:
+Sostanzialmente è un rimaneggiamento del codice citato di seguito a cui è stata aggiunta la logica del protocollo:
  * @file 	ModbusRtu.h
  * @version     1.21
  * @date        2016.02.21
