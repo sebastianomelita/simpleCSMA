@@ -7,7 +7,7 @@ Si adopera su un bus interfacciato con un transceiver RS485. Il transceiver prov
 
 Sono possibili sia trasmissioni unicast che multicast trattate indipendentemente l'una dall'altra a livello di datagramma semplicemente impostando l'indirizzo individuale col valore di broadcast (255)
 
-Supporta la libreria SoftwareSerial ma, in questo caso, bisogna impostare la velocità a 0 mella funzione init() e impostare la effettiva velocità della seriale emulata con il comando begin() dell'oggetto SoftwareSerial (nel setup() dello sketch).
+Supporta la libreria SoftwareSerial ma, in questo caso, bisogna impostare la velocità a 0 nella funzione init() e impostare la effettiva velocità della seriale emulata con il comando begin() dell'oggetto SoftwareSerial (nel setup() dello sketch).
  
  Trama: 
  
