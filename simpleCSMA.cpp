@@ -276,7 +276,7 @@ int8_t poll(modbus_t *rt, uint8_t *buf) // valuta risposte pendenti
     if ((unsigned long)(millis() -u32time) < (unsigned long)STOP_BIT) return 0;
 	
 	DEBUG_PRINTLN("--------------------------------------------------------------------------------------------");
-	int8_t i8state = getRxBuffer();  // altrimenti recupera tutto il messaggio e mettilo sul buffer
+	int8_t i8state = getRxBuffer();  // altrimenti recupera TUTTO il messaggio e mettilo sul buffer
 	
     if ((i8state >= 0) && (i8state < PAYLOAD + 1)) // se è incompleto scartalo
     {
@@ -422,7 +422,8 @@ void sendTxBuffer(uint8_t u8BufferSize){
 
 int8_t getRxBuffer()
 {
-    boolean bBuffOverflow = false;
+    uint8_t limit = MAX_BUFFER;
+	boolean bBuffOverflow = false;
 	// ripritina il transceiver RS485  in modo ricezione (default)
     if (_txpin > 1) digitalWrite( _txpin, LOW );
 	//DEBUG_PRINT("received: ");
@@ -431,7 +432,7 @@ int8_t getRxBuffer()
     while ( port->available() ) // finchè ce ne sono, leggi tutti i caratteri disponibili
     {							// e mettili sul buffer di ricezione
 		uint8_t curr = port->read();
-		if(curr != SOFV){
+		if((curr != SOFV) || (curr == SOFV) && (u8BufferSize < limit)){
 			u8Buffer[ u8BufferSize ] = curr;
 			DEBUG_PRINT("(");
 			DEBUG_PRINT((char) u8Buffer[ u8BufferSize ]);
@@ -444,13 +445,16 @@ int8_t getRxBuffer()
 				u16InCnt++;
 				u16errCnt++;
 				return ERR_BUFF_OVERFLOW;
+			}else if(u8BufferSize == PAYLOAD){
+				limit = u8Buffer[ u8BufferSize -1 ] + 2; // header + payload + fcs
 			}
 		}else{
 			DEBUG_PRINT("RCV_BUFFER_EOF: ");
 			break;
 		}
     }
-	DEBUG_PRINTLN("END_RCV_BUFFER: ");
+	DEBUG_PRINT("END_RCV_BUFFER: ");
+	DEBUG_PRINT("LIMIT: ");DEBUG_PRINTLN((uint8_t) limit);
 	// confonta il CRC ricevuto con quello calcolato in locale
     uint16_t u16MsgCRC =
         ((u8Buffer[u8BufferSize - 2] << 8)
